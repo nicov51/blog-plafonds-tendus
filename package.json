@@ -6,12 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "kill": "npx kill-port 3000",
+    "clean": "npm run kill && rm -rf .next"
   },
   "dependencies": {
     "next": "16.1.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "sass": "^1.97.1"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -19,6 +22,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
+    "kill-port": "^2.0.1",
     "typescript": "^5"
   }
 }
