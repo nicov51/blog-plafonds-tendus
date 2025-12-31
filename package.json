@@ -11,6 +11,11 @@
     "clean": "npm run kill && rm -rf .next"
   },
   "dependencies": {
+    "@tiptap/extension-image": "^3.14.0",
+    "@tiptap/extension-link": "^3.14.0",
+    "@tiptap/extension-placeholder": "^3.14.0",
+    "@tiptap/react": "^3.14.0",
+    "@tiptap/starter-kit": "^3.14.0",
     "cloudinary": "^2.8.0",
     "mongodb": "^6.21.0",
     "mongoose": "^8.21.0",

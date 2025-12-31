@@ -1,0 +1,132 @@
+@use '../variables' as *;
+
+.article-editor {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 900px;
+
+  &__group {
+    margin-bottom: 1.5rem;
+
+    &--checkbox {
+      margin-top: 2rem;
+    }
+  }
+
+  &__label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.95rem;
+  }
+
+  &__input,
+  &__select,
+  &__textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: $gold-dark;
+    }
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  &__hint {
+    display: block;
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.85rem;
+  }
+
+  &__tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__tag {
+    background: $gold-dark;
+    color: white;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-weight: 500;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__tag-input {
+    display: flex;
+    gap: 0.5rem;
+
+    .article-editor__input {
+      flex: 1;
+    }
+
+    .btn-secondary {
+      flex-shrink: 0;
+      padding: 0.75rem 1.5rem;
+    }
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: $gold-dark;
+    }
+
+    span {
+      font-size: 1rem;
+      color: #333;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+
+    button {
+      padding: 0.85rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

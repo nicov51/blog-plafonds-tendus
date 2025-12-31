@@ -1,0 +1,124 @@
+@use '../variables' as *;
+
+.admin-articles {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+
+  &__list {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    overflow-x: auto;
+  }
+
+  &__empty {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+  }
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+
+  &__head {
+    border-bottom: 2px solid #eee;
+
+    th {
+      text-align: left;
+      padding: 1rem;
+      font-weight: 600;
+      color: #333;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  &__body {
+    tr {
+      border-bottom: 1px solid #eee;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #f9f9f9;
+      }
+    }
+
+    td {
+      padding: 1rem;
+    }
+  }
+
+  &__title {
+    font-weight: 500;
+    color: #333;
+  }
+
+  &__date {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  &__status {
+    // Style dans .admin-status
+  }
+
+  &__actions {
+    text-align: right;
+  }
+}
+
+.admin-badge {
+  display: inline-block;
+  background: $gold-dark;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.admin-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+
+  &--published {
+    color: #4caf50;
+  }
+
+  &--draft {
+    color: #ff9800;
+  }
+}
+
+.admin-link {
+  color: $gold-dark;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
