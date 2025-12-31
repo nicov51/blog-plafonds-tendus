@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Blog Plafonds Tendus
 
-## Getting Started
+Un projet **Next.js** personnalisé pour gérer un blog avec :
+- **SCSS** pour le style.
+- **Cloudinary** pour le stockage et l'optimisation des images.
+- **React-Quill** pour l'édition d'articles en WYSIWYG.
+- **Better Auth** pour sécuriser l'accès admin (seul l'admin peut éditer les devis).
 
-First, run the development server:
+---
 
+## 🚀 Getting Started
+
+### Prérequis
+- Node.js (v20 ou supérieur)
+- Un compte [Cloudinary](https://cloudinary.com/) pour gérer les images.
+- Une base de données MongoDB (pour stocker les articles et les devis).
+
+### Installation
+1. Clone ce dépôt :
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   git clone https://github.com/nicov51/blog-plafonds-tendus.git
+   cd blog-plafonds-tendus
+```   
+
+### dependances
+```bash
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+crer .env.local a la racine
+MONGODB_URI=ton_uri_mongodb
+CLOUDINARY_CLOUD_NAME=ton_cloud_name
+CLOUDINARY_API_KEY=ta_cle_api
+CLOUDINARY_API_SECRET=ton_secret_api
+NEXT_PUBLIC_BETTER_AUTH_API_KEY=ta_cle_better_auth
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### lancer le serveur
+```
+npm run dev
+```
 
-## Learn More
+Ouvre http://localhost:3000 dans ton navigateur.
 
-To learn more about Next.js, take a look at the following resources:
+### Editer un article
+Connecte-toi en tant qu'admin via Better Auth.
+Utilise l'éditeur React-Quill pour rédiger ton article.
+Les images sont automatiquement uploadées vers Cloudinary.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Ressources utiles
+Documentation Next.js: https://nextjs.org/docs
+Documentation Cloudinary: https://cloudinary.com/documentation
+Documentation React-Quill: https://github.com/zenoamaro/react-quill
+Documentation Better Auth: https://betterauth.com/docs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
