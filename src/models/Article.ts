@@ -1,61 +1,94 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-const ArticleSchema = new mongoose.Schema({
-    // SEO
-    title: { type: String, required: true },
-    slug: { type: String, required: true, unique: true, index: true },
-    metaDescription: { type: String, required: true, maxlength: 160 },
+export interface IArticle {
+    _id: string;
+    title: string;
+    slug: string;
+    metaDescription: string;
+    content: string;
+    image: {
+        url: string;        // URL publique de l image
+        publicId: string;   // ID Cloudinary pour pouvoir la supprimer
+    };
+    author: {
+        name: string;
+        email: string;
+    };
+    tags: string[];
+    category?: string;
+    published: boolean;
+    views: number;
+    likesCount: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
 
-    // Catégories (embedded)
-    category: {
-        type: String,
-        required: true,
-        enum: ['plafonds-tendus', 'renovation', 'conseils', 'realisations'],
-        index: true
+const ArticleSchema = new Schema<IArticle>(
+    {
+        title: {
+            type: String,
+            required: true,
+            trim: true,
+            maxlength: 100,
+        },
+        slug: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            index: true,
+        },
+        metaDescription: {
+            type: String,
+            required: true,
+            maxlength: 160,
+        },
+        content: {
+            type: String,
+            required: true,
+        },
+        image: {
+            url: {
+                type: String,
+                required: true,
+            },
+            publicId: {
+                type: String,
+                required: true,
+            },
+        },
+        author: {
+            name: {
+                type: String,
+                default: 'Nicolas V',
+            },
+            email: String,
+        },
+        tags: {
+            type: [String],
+            default: [],
+        },
+        category: String,
+        published: {
+            type: Boolean,
+            default: false,
+        },
+        views: {
+            type: Number,
+            default: 0,
+        },
+        likesCount: {
+            type: Number,
+            default: 0,
+        },
     },
-    tags: [{ type: String }], // Ex: ['barrisol', 'eclairage', 'moderne']
-
-    // Contenu
-    content: { type: String, required: true },
-    excerpt: { type: String, required: true, maxlength: 200 }, // Pour les previews
-    imageUrl: { type: String, required: true },
-    imageAlt: { type: String, required: true },
-
-    // Liens externes (pour backlinks)
-    externalLinks: [{
-        url: String,
-        anchor: String,
-        nofollow: { type: Boolean, default: false }
-    }],
-
-    // Métadonnées
-    author: { type: String, default: 'Nicolas Viennot' },
-    publishedAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
-
-    // Analytics (OBLIGATOIRE)
-    views: { type: Number, default: 0, required: true },
-    likesCount: { type: Number, default: 0 }, // Compteur dénormalisé
-
-    // Statut
-    status: {
-        type: String,
-        enum: ['draft', 'published'],
-        default: 'draft',
-        index: true
-    },
-
-    // Partages sociaux (tracking)
-    shares: {
-        linkedin: { type: Number, default: 0 },
-        twitter: { type: Number, default: 0 },
-        facebook: { type: Number, default: 0 }
+    {
+        timestamps: true,
     }
-}, {
-    timestamps: true // Ajoute createdAt et updatedAt automatiquement
-});
+);
 
-// Index pour recherche full-text
-ArticleSchema.index({ title: 'text', content: 'text', excerpt: 'text' });
+// Index pour recherche
+ArticleSchema.index({ title: 'text', content: 'text' });
 
-export default mongoose.models.Article || mongoose.model('Article', ArticleSchema);
+export const Article = mongoose.models.Article || mongoose.model<IArticle>('Article', ArticleSchema);
+

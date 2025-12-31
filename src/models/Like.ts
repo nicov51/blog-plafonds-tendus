@@ -15,4 +15,4 @@ const LikeSchema = new mongoose.Schema({
 // Index composite pour éviter doublons
 LikeSchema.index({ articleId: 1, ipAddress: 1 }, { unique: true });
 
-export default mongoose.models.Like || mongoose.model('Like', LikeSchema);
+export const Like = mongoose.models.Like || mongoose.model('Like', LikeSchema);
