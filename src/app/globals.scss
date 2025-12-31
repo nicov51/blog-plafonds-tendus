@@ -2,16 +2,19 @@
 @use '../styles/mixins' as *;
 @use '../styles/reset';
 
-// ========================================
-// 🎨 COMPOSANTS
-// ========================================
+//  COMPOSANTS
+
 @use '../styles/components/navbar';
 @use '../styles/components/footer';
 @use '../styles/components/hero';
+@use '../styles/components/article-card';
+@use '../styles/components/category-card';
 
-// ========================================
-// 🎨 STYLES GLOBAUX
-// ========================================
+//PAGES
+@use '../styles/pages/articles';
+
+// STYLES GLOBAUX
+
 body {
   font-family: $font-sans;
   line-height: 1.6;
@@ -19,9 +22,8 @@ body {
   background: $bg-darkest;
 }
 
-// ========================================
-// 🎨 UTILITAIRES
-// ========================================
+// UTILITAIRES
+
 .container {
   max-width: 1280px;
   margin: 0 auto;
@@ -40,9 +42,9 @@ body {
   }
 }
 
-// ========================================
+
 // 🎨 BOUTONS
-// ========================================
+
 .btn-gold {
   background: $gold-primary;
   color: $bg-darkest;
