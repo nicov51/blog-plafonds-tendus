@@ -1,0 +1,83 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+@use '../styles/reset';
+
+// ========================================
+// 🎨 COMPOSANTS
+// ========================================
+@use '../styles/components/navbar';
+@use '../styles/components/footer';
+@use '../styles/components/hero';
+
+// ========================================
+// 🎨 STYLES GLOBAUX
+// ========================================
+body {
+  font-family: $font-sans;
+  line-height: 1.6;
+  color: $text-primary;
+  background: $bg-darkest;
+}
+
+// ========================================
+// 🎨 UTILITAIRES
+// ========================================
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+
+  @include mobile {
+    padding: 0 $spacing-sm;
+  }
+}
+
+.section {
+  padding: $spacing-xl 0;
+
+  @include mobile {
+    padding: $spacing-lg 0;
+  }
+}
+
+// ========================================
+// 🎨 BOUTONS
+// ========================================
+.btn-gold {
+  background: $gold-primary;
+  color: $bg-darkest;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: $text-base;
+  transition: all $transition-base;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: $gold-light;
+    transform: translateY(-2px);
+    box-shadow: $shadow-gold;
+  }
+}
+
+.btn-outline-gold {
+  border: 2px solid $gold-primary;
+  color: $gold-primary;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: 8px;
+  font-weight: 600;
+  background: transparent;
+  transition: all $transition-base;
+  display: inline-block;
+  cursor: pointer;
+
+  &:hover {
+    background: $gold-primary;
+    color: $bg-darkest;
+  }
+}
+
+
+

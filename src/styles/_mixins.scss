@@ -1,0 +1,57 @@
+@use 'variables' as *;
+
+// Responsive
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+// Centrage flexbox
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Effet doré
+@mixin gold-glow {
+  box-shadow: 0 0 20px rgba($gold-primary, 0.4);
+  transition: box-shadow $transition-base;
+
+  &:hover {
+    box-shadow: 0 0 30px rgba($gold-primary, 0.6);
+  }
+}
+
+// Dégradé or
+@mixin gold-gradient {
+  background: linear-gradient(135deg, $gold-dark 0%, $gold-primary 50%, $gold-light 100%);
+}
+
+// Card élégante
+@mixin card {
+  background: $bg-card;
+  border: 1px solid $border-subtle;
+  border-radius: 12px;
+  padding: $spacing-lg;
+  transition: all $transition-base;
+
+  &:hover {
+    border-color: $border-medium;
+    box-shadow: $shadow-gold;
+    transform: translateY(-4px);
+  }
+}

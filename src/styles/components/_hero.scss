@@ -1,0 +1,69 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.hero {
+  min-height: 80vh;
+  @include flex-center;
+  background: linear-gradient(135deg, $bg-darkest 0%, $bg-dark 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba($gold-primary, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  &__content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__title {
+    font-size: $text-4xl;
+    margin-bottom: $spacing-md;
+
+    @include mobile {
+      font-size: $text-3xl;
+    }
+
+    span {
+      @include gold-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  &__subtitle {
+    font-size: $text-xl;
+    color: $text-secondary;
+    margin-bottom: $spacing-xl;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include mobile {
+      font-size: $text-lg;
+    }
+  }
+
+  &__cta {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-50px, 50px) rotate(180deg); }
+}
