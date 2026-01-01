@@ -1,0 +1,170 @@
+@use '../variables' as *;
+// ========================================
+// PAGE À PROPOS
+// ========================================
+
+.page-about {
+  padding: $spacing-2xl 0;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: $spacing-2xl;
+
+  h1 {
+    font-size: $text-4xl;
+    color: $gold-light;
+    margin-bottom: $spacing-md;
+    font-family: $font-serif;
+  }
+
+  .subtitle {
+    font-size: $text-lg;
+    color: $text-secondary;
+  }
+}
+
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-intro {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: $spacing-2xl;
+  margin-bottom: $spacing-2xl;
+
+  @media (max-width: $tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.intro-text {
+  h2 {
+    font-size: $text-3xl;
+    color: $gold-light;
+    margin-bottom: $spacing-md;
+    font-family: $font-serif;
+  }
+
+  .lead {
+    font-size: $text-xl;
+    color: $gold-light;
+    font-weight: 500;
+    margin-bottom: $spacing-lg;
+  }
+
+  p {
+    color: $text-secondary;
+    line-height: 1.8;
+    margin-bottom: $spacing-md;
+  }
+}
+
+.intro-image {
+  .placeholder-image {
+    aspect-ratio: 3/4;
+    background: $bg-card;
+    border: 2px dashed $border-medium;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $text-muted;
+
+    span {
+      font-size: $text-4xl;
+      margin-bottom: $spacing-sm;
+    }
+  }
+}
+
+.strengths {
+  margin-bottom: $spacing-2xl;
+
+  h2 {
+    font-size: $text-2xl;
+    color: $gold-light;
+    margin-bottom: $spacing-xl;
+    text-align: center;
+    font-family: $font-serif;
+  }
+}
+
+.strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-lg;
+}
+
+.strength-card {
+  background: $bg-card;
+  padding: $spacing-xl;
+  border-radius: 8px;
+  border: 1px solid $border-medium;
+  text-align: center;
+  transition: $transition-base;
+
+  &:hover {
+    border-color: $gold-primary;
+    transform: translateY(-4px);
+    box-shadow: $shadow-gold;
+  }
+
+  .icon {
+    font-size: $text-4xl;
+    margin-bottom: $spacing-md;
+  }
+
+  h3 {
+    color: $gold-light;
+    font-size: $text-lg;
+    margin-bottom: $spacing-sm;
+  }
+
+  p {
+    color: $text-secondary;
+    line-height: 1.6;
+  }
+}
+
+.skills {
+  background: $bg-card;
+  padding: $spacing-2xl;
+  border-radius: 12px;
+  border: 1px solid $border-medium;
+
+  h2 {
+    font-size: $text-2xl;
+    color: $gold-light;
+    margin-bottom: $spacing-xl;
+    text-align: center;
+    font-family: $font-serif;
+  }
+}
+
+.skills-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-md;
+
+  li {
+    color: $text-secondary;
+    font-size: $text-lg;
+    padding: $spacing-sm;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: $gold-primary;
+      border-radius: 50%;
+      margin-right: $spacing-sm;
+    }
+  }
+}

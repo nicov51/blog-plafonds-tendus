@@ -1,69 +1,102 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { uploadService } from '@/services/uploadService';
+import { useState } from 'react';
+import { ImageData } from '@/types/article';
 
-interface ImageData {
-    url: string;
-    publicId: string;
+interface ImageUploadProps {
+    value: ImageData | null;
+    onChange: (image: ImageData | null) => void;
 }
 
-interface Props {
-    value?: ImageData;
-    onChange: (image?: ImageData) => void;
-}
-
-export default function ImageUpload({ value, onChange }: Props) {
+export default function ImageUpload({ value, onChange }: ImageUploadProps) {
     const [uploading, setUploading] = useState(false);
+    const [error, setError] = useState('');
 
     const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        // Bloquer les SVG
-        if (file.type === 'image/svg+xml') {
-            alert('Les fichiers SVG ne sont pas acceptés');
+        // Validation
+        if (!file.type.startsWith('image/')) {
+            setError('Le fichier doit être une image');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            setError('L\'image ne doit pas dépasser 5 Mo');
             return;
         }
 
         setUploading(true);
+        setError('');
+
         try {
-            const data = await uploadService.upload(file);
-            onChange(data);
-        } catch {
-            alert('Erreur upload');
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!res.ok) {
+                throw new Error('Erreur lors de l\'upload');
+            }
+
+            const data = await res.json();
+            onChange({
+                url: data.url,
+                publicId: data.publicId,
+                alt: file.name,
+            });
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Erreur inconnue');
         } finally {
             setUploading(false);
         }
     };
 
-    const handleDelete = async () => {
-        if (!value) return;
-        try {
-            await uploadService.delete(value.publicId);
-            onChange(undefined);
-        } catch {
-            alert('Erreur suppression');
-        }
+    const handleRemove = () => {
+        onChange(null);
     };
 
-    if (value) {
-        return (
-            <div className="image-preview">
-                <Image src={value.url} alt="Preview" width={600} height={400} />
-                <button type="button" onClick={handleDelete} className="btn-delete">
-                    🗑️
-                </button>
-            </div>
-        );
-    }
-
     return (
-        <label className="image-upload">
-            <input type="file" accept="image/jpeg,image/png,image/webp,image/jpg" onChange={handleUpload} disabled={uploading} />
-            <span className="upload-label">{uploading ? '⏳' : '📷 Choisir'}</span>
-        </label>
+        <div className="image-upload">
+            {value ? (
+                <div className="image-preview">
+                    <img src={value.url} alt={value.alt || 'Image'} />
+                    <button
+                        type="button"
+                        onClick={handleRemove}
+                        className="btn-remove"
+                    >
+                        ✕ Supprimer
+                    </button>
+                </div>
+            ) : (
+                <label className="upload-zone">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleUpload}
+                        disabled={uploading}
+                    />
+                    <div className="upload-content">
+                        {uploading ? (
+                            <p>⏳ Upload en cours...</p>
+                        ) : (
+                            <>
+                                <p>📷 Cliquez pour ajouter une image</p>
+                                <span>JPG, PNG, WebP (max 5 Mo)</span>
+                            </>
+                        )}
+                    </div>
+                </label>
+            )}
+
+            {error && <p className="error-text">{error}</p>}
+        </div>
     );
 }
+
 

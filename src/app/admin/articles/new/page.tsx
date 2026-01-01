@@ -1,4 +1,4 @@
-import ArticleEditor from '@/app/components/admin/ArticleEditor';
+import ArticleForm from '@/app/components/admin/ArticleForm';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export default function NewArticlePage() {
                 <p>Rédigez et publiez un nouvel article pour votre blog</p>
             </div>
 
-            <ArticleEditor  mode={"create"} />
+            <ArticleForm  mode={"create"} />
         </div>
     );
 }
