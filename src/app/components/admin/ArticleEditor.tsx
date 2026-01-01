@@ -2,255 +2,108 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { articleService } from '@/services/articleService';
 import ImageUpload from './ImageUpload';
-import TiptapEditor from './TiptapEditor';
 
-interface ArticleData {
+interface FormData {
     title: string;
     slug: string;
     content: string;
     metaDescription: string;
-    category: string;
-    tags: string[];
-    image?: { url: string; publicId: string; alt: string };
-    published: boolean;
+    image?: { url: string; publicId: string };
 }
 
-interface ArticleEditorProps {
-    initialData?: Partial<ArticleData>;
-    mode: 'create' | 'edit';
-}
-
-const CATEGORIES = ['conseils', 'realisations', 'tendances', 'techniques'];
-
-export default function ArticleEditor({ initialData, mode }: ArticleEditorProps) {
+export default function ArticleEditor() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-
-    const [formData, setFormData] = useState<ArticleData>({
-        title: initialData?.title || '',
-        slug: initialData?.slug || '',
-        content: initialData?.content || '',
-        metaDescription: initialData?.metaDescription || '',
-        category: initialData?.category || 'conseils',
-        tags: initialData?.tags || [],
-        image: initialData?.image,
-        published: initialData?.published ?? false,
+    const [form, setForm] = useState<FormData>({
+        title: '',
+        slug: '',
+        content: '',
+        metaDescription: '',
     });
 
-    const [tagInput, setTagInput] = useState('');
-
     const handleTitleChange = (title: string) => {
-        setFormData(prev => ({
+        setForm(prev => ({
             ...prev,
             title,
-            slug: mode === 'create' ? title
-                .toLowerCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-+|-+$/g, '') : prev.slug
-        }));
-    };
-
-    const addTag = () => {
-        if (tagInput && !formData.tags.includes(tagInput)) {
-            setFormData(prev => ({
-                ...prev,
-                tags: [...prev.tags, tagInput]
-            }));
-            setTagInput('');
-        }
-    };
-
-    const removeTag = (tag: string) => {
-        setFormData(prev => ({
-            ...prev,
-            tags: prev.tags.filter(t => t !== tag)
+            slug: articleService.generateSlug(title)
         }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!form.image) return alert('Image requise');
+
         setLoading(true);
-
         try {
-            const url = mode === 'create'
-                ? '/api/articles'
-                : `/api/articles/${initialData?.slug}`;
-
-            const method = mode === 'create' ? 'POST' : 'PUT';
-
-            const res = await fetch(url, {
-                method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    author: {
-                        name: 'Équipe Plafond Tendu Pro',
-                        email: 'contact@plafondtendu.fr'
-                    }
-                }),
-            });
-
-            const data = await res.json();
-
-            if (data.success) {
-                alert(mode === 'create' ? 'Article créé !' : 'Article mis à jour !');
-                router.push('/admin/articles');
-                router.refresh();
-            } else {
-                alert('Erreur : ' + data.message);
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            alert('Erreur lors de la sauvegarde');
+            await articleService.create(form as Required<FormData>);
+            alert('Article créé');
+            router.push('/admin/articles');
+        } catch {
+            alert('Erreur');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="article-editor">
-            {/* Titre */}
-            <div className="article-editor__group">
-                <label className="article-editor__label">Titre de l&apos;article *</label>
+        <form onSubmit={handleSubmit} className="article-form">
+            <div className="form-field">
+                <label>Titre *</label>
                 <input
                     type="text"
-                    className="article-editor__input"
-                    value={formData.title}
+                    value={form.title}
                     onChange={(e) => handleTitleChange(e.target.value)}
                     required
-                    placeholder="Ex: Les avantages du plafond tendu"
                 />
             </div>
 
-            {/* Slug */}
-            <div className="article-editor__group">
-                <label className="article-editor__label">Slug (URL) *</label>
-                <input
-                    type="text"
-                    className="article-editor__input"
-                    value={formData.slug}
-                    onChange={(e) => setFormData(prev => ({...prev, slug: e.target.value}))}
-                    required
-                    placeholder="avantages-plafond-tendu"
-                />
-                <small className="article-editor__hint">URL: /articles/{formData.slug}</small>
+            <div className="form-field">
+                <label>Slug</label>
+                <input type="text" value={form.slug} readOnly />
             </div>
 
-            {/* Image */}
-            <div className="article-editor__group">
-                <label className="article-editor__label">Image de couverture</label>
-                <ImageUpload
-                    currentImage={formData.image}
-                    onImageUploaded={(image) => setFormData(prev => ({...prev, image}))}
-                />
-            </div>
-
-            {/* Catégorie */}
-            <div className="article-editor__group">
-                <label className="article-editor__label">Catégorie *</label>
-                <select
-                    className="article-editor__select"
-                    value={formData.category}
-                    onChange={(e) => setFormData(prev => ({...prev, category: e.target.value}))}
-                    required
-                >
-                    {CATEGORIES.map(cat => (
-                        <option key={cat} value={cat}>
-                            {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
-            {/* Tags */}
-            <div className="article-editor__group">
-                <label className="article-editor__label">Tags</label>
-                <div className="article-editor__tags">
-                    {formData.tags.map(tag => (
-                        <span
-                            key={tag}
-                            className="article-editor__tag"
-                            onClick={() => removeTag(tag)}
-                        >
-                            {tag} ✕
-                        </span>
-                    ))}
-                </div>
-                <div className="article-editor__tag-input">
-                    <input
-                        type="text"
-                        className="article-editor__input"
-                        value={tagInput}
-                        onChange={(e) => setTagInput(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                                e.preventDefault();
-                                addTag();
-                            }
-                        }}
-                        placeholder="Ajouter un tag (Entrée pour valider)"
-                    />
-                    <button type="button" onClick={addTag} className="btn-secondary">
-                        +
-                    </button>
-                </div>
-            </div>
-
-            {/* Meta Description */}
-            <div className="article-editor__group">
-                <label className="article-editor__label">Meta Description (SEO) *</label>
+            <div className="form-field">
+                <label>Meta (160 car max)</label>
                 <textarea
-                    className="article-editor__textarea"
-                    value={formData.metaDescription}
-                    onChange={(e) => setFormData(prev => ({...prev, metaDescription: e.target.value}))}
-                    required
-                    rows={3}
-                    placeholder="Description pour les moteurs de recherche (max 160 caractères)"
+                    value={form.metaDescription}
+                    onChange={(e) => setForm(prev => ({ ...prev, metaDescription: e.target.value }))}
                     maxLength={160}
+                    rows={2}
                 />
-                <small className="article-editor__hint">
-                    {formData.metaDescription.length}/160 caractères
-                </small>
+                <span>{form.metaDescription.length}/160</span>
             </div>
 
-            {/* Contenu */}
-            <div className="article-editor__group">
-                <label className="article-editor__label">Contenu de l&apos;article *</label>
-                <TiptapEditor
-                    content={formData.content}
-                    onChange={(content) => setFormData(prev => ({...prev, content}))}
+            <div className="form-field">
+                <label>Image *</label>
+                <ImageUpload
+                    value={form.image}
+                    onChange={(image) => setForm(prev => ({ ...prev, image }))}
                 />
             </div>
 
-            {/* Publié */}
-            <div className="article-editor__group article-editor__group--checkbox">
-                <label className="article-editor__checkbox">
-                    <input
-                        type="checkbox"
-                        checked={formData.published}
-                        onChange={(e) => setFormData(prev => ({...prev, published: e.target.checked}))}
-                    />
-                    <span>Publier l&apos;article immédiatement</span>
-                </label>
+            <div className="form-field">
+                <label>Contenu *</label>
+                <textarea
+                    value={form.content}
+                    onChange={(e) => setForm(prev => ({ ...prev, content: e.target.value }))}
+                    rows={15}
+                    required
+                />
             </div>
 
-            {/* Actions */}
-            <div className="article-editor__actions">
-                <button type="submit" className="btn-primary" disabled={loading}>
-                    {loading ? 'Sauvegarde...' : (mode === 'create' ? '✅ Créer l\'article' : '💾 Mettre à jour')}
-                </button>
-                <button
-                    type="button"
-                    className="btn-secondary"
-                    onClick={() => router.push('/admin/articles')}
-                >
-                    Annuler
+            <div className="form-actions">
+                <button type="button" onClick={() => router.back()}>Annuler</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? '⏳' : '✅ Créer'}
                 </button>
             </div>
         </form>
     );
 }
+
+
+
+
 

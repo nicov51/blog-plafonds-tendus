@@ -1,0 +1,57 @@
+@use '../variables' as *;
+
+.image-preview {
+  position: relative;
+  display: inline-block;
+  border-radius: $spacing-xs;
+  overflow: hidden;
+
+  img {
+    display: block;
+    border: 2px solid $border-medium;
+  }
+
+  .btn-delete {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    background: $bg-dark;
+    color: $text-primary;
+    border: 1px solid $gold-dark;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $spacing-xs;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      background: $gold-dark;
+      box-shadow: $shadow-gold;
+    }
+  }
+}
+
+.image-upload {
+  display: inline-block;
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+
+  .upload-label {
+    display: inline-block;
+    padding: $spacing-sm $spacing-lg;
+    background: $bg-medium;
+    color: $text-primary;
+    border: 2px solid $gold-primary;
+    border-radius: $spacing-xs;
+    transition: all $transition-base;
+    font-weight: 500;
+
+    &:hover {
+      background: $gold-primary;
+      color: $bg-darkest;
+      box-shadow: $shadow-gold;
+    }
+  }
+}

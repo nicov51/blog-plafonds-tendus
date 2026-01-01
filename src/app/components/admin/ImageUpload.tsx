@@ -2,89 +2,68 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { uploadService } from '@/services/uploadService';
 
-interface ImageUploadProps {
-    currentImage?: { url: string; publicId: string; alt: string };
-    onImageUploaded: (image: { url: string; publicId: string; alt: string }) => void;
+interface ImageData {
+    url: string;
+    publicId: string;
 }
 
-export default function ImageUpload({ currentImage, onImageUploaded }: ImageUploadProps) {
+interface Props {
+    value?: ImageData;
+    onChange: (image?: ImageData) => void;
+}
+
+export default function ImageUpload({ value, onChange }: Props) {
     const [uploading, setUploading] = useState(false);
-    const [preview, setPreview] = useState(currentImage?.url || '');
-    const [alt, setAlt] = useState(currentImage?.alt || '');
 
     const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
 
+        // Bloquer les SVG
+        if (file.type === 'image/svg+xml') {
+            alert('Les fichiers SVG ne sont pas acceptés');
+            return;
+        }
+
         setUploading(true);
-        const formData = new FormData();
-        formData.append('file', file);
-
         try {
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData,
-            });
-
-            const data = await res.json();
-
-            if (data.success) {
-                setPreview(data.url);
-                onImageUploaded({
-                    url: data.url,
-                    publicId: data.publicId,
-                    alt: alt || 'Image article'
-                });
-            }
-        } catch (error) {
-            console.error('Erreur upload:', error);
-            alert('Erreur lors de l\'upload');
+            const data = await uploadService.upload(file);
+            onChange(data);
+        } catch {
+            alert('Erreur upload');
         } finally {
             setUploading(false);
         }
     };
 
+    const handleDelete = async () => {
+        if (!value) return;
+        try {
+            await uploadService.delete(value.publicId);
+            onChange(undefined);
+        } catch {
+            alert('Erreur suppression');
+        }
+    };
+
+    if (value) {
+        return (
+            <div className="image-preview">
+                <Image src={value.url} alt="Preview" width={600} height={400} />
+                <button type="button" onClick={handleDelete} className="btn-delete">
+                    🗑️
+                </button>
+            </div>
+        );
+    }
+
     return (
-        <div className="form-group">
-            <label>Image de l&apos;article</label>
-
-            {preview && (
-                <div style={{ marginBottom: '1rem', position: 'relative', width: '100%', height: '300px' }}>
-                    <Image
-                        src={preview}
-                        alt="Preview"
-                        fill
-                        style={{ objectFit: 'cover', borderRadius: '8px' }}
-                    />
-                </div>
-            )}
-
-            <input
-                type="file"
-                accept="image/*"
-                onChange={handleUpload}
-                disabled={uploading}
-                style={{ marginBottom: '0.5rem' }}
-            />
-
-            {uploading && <p>Upload en cours...</p>}
-
-            <input
-                type="text"
-                placeholder="Texte alternatif (SEO)"
-                value={alt}
-                onChange={(e) => {
-                    setAlt(e.target.value);
-                    if (preview) {
-                        onImageUploaded({
-                            url: preview,
-                            publicId: currentImage?.publicId || '',
-                            alt: e.target.value
-                        });
-                    }
-                }}
-            />
-        </div>
+        <label className="image-upload">
+            <input type="file" accept="image/jpeg,image/png,image/webp,image/jpg" onChange={handleUpload} disabled={uploading} />
+            <span className="upload-label">{uploading ? '⏳' : '📷 Choisir'}</span>
+        </label>
     );
 }
+
