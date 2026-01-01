@@ -64,4 +64,47 @@
       }
     }
   }
+
+  &__auth {
+    display: flex;
+    gap: $spacing-sm;
+    align-items: center;
+
+    .btn-outline-gold {
+      padding: $spacing-xs $spacing-md;
+      font-size: $text-sm;
+      white-space: nowrap;
+    }
+
+    button {
+      background: transparent;
+      border: 1px solid $border-medium;
+      color: $text-secondary;
+      padding: $spacing-xs $spacing-md;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: $text-sm;
+      transition: $transition-fast;
+      white-space: nowrap;
+
+      &:hover {
+        border-color: $gold-primary;
+        color: $gold-light;
+        background: rgba($gold-primary, 0.1);
+      }
+    }
+
+    @media (max-width: $mobile) {
+      gap: $spacing-xs;
+
+      .btn-outline-gold,
+      button {
+        padding: $spacing-xs;
+        font-size: $text-xs;
+      }
+    }
+  }
+
+
 }

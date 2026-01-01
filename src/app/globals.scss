@@ -13,11 +13,14 @@
 @use '../styles/components/tiptap';
 @use '../styles/components/article-editor';
 @use '../styles/components/image-upload';
+@use '../styles/components/auth';
 
 //PAGES
 @use '../styles/pages/articles';
 @use '../styles/pages/admin-dashboard';
 @use '../styles/pages/admin-articles';
+@use '../styles/pages/admin';
+@use '../styles/pages/signin';
 
 // STYLES GLOBAUX
 
