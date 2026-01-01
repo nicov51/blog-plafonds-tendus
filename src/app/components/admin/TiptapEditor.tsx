@@ -141,7 +141,7 @@ export default function TiptapEditor({ content, onChange }: TiptapEditorProps) {
                     className={editor.isActive('blockquote') ? 'is-active' : ''}
                     title="Citation"
                 >
-                    " Citation
+                    &#34; Citation
                 </button>
 
                 <div className="toolbar-divider" />

@@ -1,0 +1,44 @@
+@use '../variables' as *;
+
+.btn-login,
+.btn-logout {
+  padding: $spacing-sm $spacing-lg;
+  border: 2px solid $gold-primary;
+  border-radius: $spacing-xs;
+  background: $bg-medium;
+  color: $text-primary;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $gold-primary;
+    color: $bg-darkest;
+    box-shadow: $shadow-gold;
+    transform: translateY(-1px);
+  }
+}
+
+.auth-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: $text-gold;
+  font-size: $text-lg;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-md $spacing-xl;
+  background: $bg-card;
+  border-bottom: 1px solid $border-medium;
+
+  h1 {
+    color: $text-gold;
+    font-size: $text-2xl;
+    font-weight: 600;
+  }
+}
