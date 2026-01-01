@@ -50,7 +50,7 @@ Les images sont automatiquement uploadées vers Cloudinary.
 ### Ressources utiles
 Documentation Next.js: https://nextjs.org/docs
 Documentation Cloudinary: https://cloudinary.com/documentation
-Documentation React-Quill: https://github.com/zenoamaro/react-quill
+Documentation Tiptap: https://tiptap.dev/docs
 Documentation Better Auth: https://betterauth.com/docs
 
 

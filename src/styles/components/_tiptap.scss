@@ -1,0 +1,166 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.tiptap-wrapper {
+  border: 1px solid $border-subtle;
+  border-radius: 12px;
+  overflow: hidden;
+  background: $bg-card;
+}
+
+.tiptap-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: $spacing-sm;
+  border-bottom: 1px solid $border-subtle;
+  background: $bg-medium;
+
+  button {
+    padding: $spacing-xs $spacing-sm;
+    border: 1px solid $border-subtle;
+    background: $bg-card;
+    color: $text-secondary;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: $text-sm;
+    transition: all $transition-fast;
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover:not(:disabled) {
+      background: rgba($gold-primary, 0.1);
+      border-color: $gold-primary;
+      color: $gold-primary;
+    }
+
+    &.is-active {
+      background: $gold-primary;
+      color: $bg-darkest;
+      border-color: $gold-primary;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.toolbar-divider {
+  width: 1px;
+  background: $border-subtle;
+  margin: 0 0.25rem;
+}
+
+.tiptap-editor {
+  padding: $spacing-lg;
+  min-height: 400px;
+  max-height: 600px;
+  overflow-y: auto;
+  font-size: $text-base;
+  line-height: 1.6;
+  color: $text-primary;
+
+  &:focus {
+    outline: none;
+  }
+
+  p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: $text-muted;
+    pointer-events: none;
+    height: 0;
+  }
+
+  h2, h3, h4 {
+    color: $gold-light;
+    margin: $spacing-lg 0 $spacing-sm;
+  }
+
+  h2 { font-size: $text-3xl; }
+  h3 { font-size: $text-2xl; }
+  h4 { font-size: $text-xl; }
+
+  p {
+    margin: $spacing-sm 0;
+  }
+
+  strong {
+    font-weight: 700;
+    color: $text-primary;
+  }
+
+  ul, ol {
+    margin: $spacing-md 0;
+    padding-left: $spacing-xl;
+  }
+
+  li {
+    margin: $spacing-xs 0;
+  }
+
+  blockquote {
+    border-left: 4px solid $gold-primary;
+    padding-left: $spacing-lg;
+    margin: $spacing-lg 0;
+    font-style: italic;
+    color: $text-secondary;
+    background: rgba($gold-primary, 0.05);
+    padding: $spacing-md $spacing-lg;
+    border-radius: 4px;
+  }
+
+  a {
+    color: $gold-primary;
+    text-decoration: underline;
+
+    &:hover {
+      color: $gold-light;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: $spacing-md 0;
+  }
+
+  code {
+    background: $bg-medium;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: $gold-light;
+  }
+
+  pre {
+    background: $bg-darkest;
+    color: $text-primary;
+    padding: $spacing-md;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: $spacing-md 0;
+
+    code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+  }
+}
+
+.tiptap-footer {
+  padding: $spacing-sm $spacing-md;
+  border-top: 1px solid $border-subtle;
+  background: $bg-medium;
+  font-size: $text-sm;
+  color: $text-muted;
+  text-align: right;
+}

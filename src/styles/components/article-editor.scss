@@ -1,0 +1,114 @@
+@use '../variables' as *;
+
+.article-form {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: $spacing-xl;
+  background: $bg-card;
+  border: 1px solid $border-subtle;
+  border-radius: $spacing-sm;
+}
+
+.form-field {
+  margin-bottom: $spacing-lg;
+
+  label {
+    display: block;
+    margin-bottom: $spacing-xs;
+    color: $text-gold;
+    font-weight: 500;
+    font-size: $text-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: $spacing-sm;
+    background: $bg-dark;
+    color: $text-primary;
+    border: 1px solid $border-medium;
+    border-radius: $spacing-xs;
+    font-family: $font-sans;
+    font-size: $text-base;
+    transition: all $transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: $gold-primary;
+      box-shadow: $shadow-gold;
+    }
+
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    font-family: $font-sans;
+    line-height: 1.6;
+  }
+
+  input[readonly] {
+    background: $bg-medium;
+    color: $text-secondary;
+    cursor: not-allowed;
+  }
+
+  span {
+    display: block;
+    margin-top: $spacing-xs;
+    color: $text-muted;
+    font-size: $text-xs;
+    text-align: right;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: $spacing-md;
+  justify-content: flex-end;
+  margin-top: $spacing-xl;
+  padding-top: $spacing-lg;
+  border-top: 1px solid $border-subtle;
+
+  button {
+    padding: $spacing-sm $spacing-lg;
+    border: none;
+    border-radius: $spacing-xs;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: $text-base;
+    transition: all $transition-base;
+
+    &[type="submit"] {
+      background: $gold-primary;
+      color: $bg-darkest;
+
+      &:hover {
+        background: $gold-accent;
+        box-shadow: $shadow-gold;
+        transform: translateY(-1px);
+      }
+    }
+
+    &[type="button"] {
+      background: $bg-medium;
+      color: $text-primary;
+      border: 1px solid $border-medium;
+
+      &:hover {
+        background: $bg-light;
+        border-color: $border-strong;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+}
