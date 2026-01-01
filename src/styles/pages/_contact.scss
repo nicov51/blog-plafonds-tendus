@@ -1,0 +1,141 @@
+@use '../variables' as *;
+// ========================================
+// PAGE CONTACT
+// ========================================
+
+.page-contact {
+  padding: $spacing-2xl 0;
+  min-height: calc(100vh - 200px);
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: $spacing-2xl;
+
+  h1 {
+    font-size: $text-4xl;
+    color: $gold-light;
+    margin-bottom: $spacing-md;
+    font-family: $font-serif;
+  }
+
+  .subtitle {
+    font-size: $text-lg;
+    color: $text-secondary;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: $spacing-2xl;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: $tablet) {
+    grid-template-columns: 1fr;
+    gap: $spacing-xl;
+  }
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.info-card {
+  background: $bg-card;
+  padding: $spacing-lg;
+  border-radius: 8px;
+  border: 1px solid $border-medium;
+  text-align: center;
+  transition: $transition-base;
+
+  &:hover {
+    border-color: $gold-primary;
+    box-shadow: $shadow-gold;
+    transform: translateY(-2px);
+  }
+
+  .icon {
+    font-size: $text-3xl;
+    margin-bottom: $spacing-sm;
+  }
+
+  h3 {
+    color: $gold-light;
+    font-size: $text-lg;
+    margin-bottom: $spacing-sm;
+    font-weight: 600;
+  }
+
+  a {
+    color: $text-secondary;
+    text-decoration: none;
+    transition: $transition-fast;
+    display: block;
+    margin-bottom: $spacing-xs;
+
+    &:hover {
+      color: $gold-accent;
+    }
+  }
+
+  p {
+    color: $text-muted;
+    font-size: $text-sm;
+    margin: $spacing-xs 0 0;
+  }
+
+  .info-description {
+    font-size: $text-xs;
+    color: $text-muted;
+    font-style: italic;
+  }
+}
+
+.contact-cta {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.cta-card {
+  background: $bg-card;
+  padding: $spacing-xl;
+  border-radius: 12px;
+  border: 1px solid $border-medium;
+  text-align: center;
+  transition: $transition-base;
+
+  &:hover {
+    border-color: $gold-primary;
+    box-shadow: $shadow-gold;
+  }
+
+  h2 {
+    font-size: $text-2xl;
+    color: $gold-light;
+    margin-bottom: $spacing-md;
+    font-family: $font-serif;
+  }
+
+  p {
+    color: $text-secondary;
+    line-height: 1.8;
+    margin-bottom: $spacing-lg;
+    font-size: $text-base;
+  }
+
+  .btn-large {
+    padding: $spacing-md $spacing-xl;
+    font-size: $text-lg;
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+  }
+}
