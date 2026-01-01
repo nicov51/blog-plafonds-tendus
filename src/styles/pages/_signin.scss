@@ -1,30 +1,35 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
 .auth-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem;
+  background: linear-gradient(135deg, $bg-darkest 0%, $bg-dark 100%);
+  padding: $spacing-lg;
 }
 
 .auth-card {
-  background: white;
-  padding: 3rem;
+  background: $bg-card;
+  padding: $spacing-2xl;
   border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid $border-medium;
+  box-shadow: $shadow-lg, $shadow-gold;
   text-align: center;
   max-width: 400px;
   width: 100%;
 
   h1 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: #333;
+    font-size: $text-3xl;
+    margin-bottom: $spacing-sm;
+    color: $gold-light;
+    font-family: $font-serif;
   }
 
   p {
-    color: #666;
-    margin-bottom: 2rem;
+    color: $text-secondary;
+    margin-bottom: $spacing-xl;
   }
 }
 
@@ -32,23 +37,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: $spacing-sm;
   width: 100%;
-  padding: 0.875rem 1.5rem;
-  background: white;
-  border: 2px solid #ddd;
+  padding: $spacing-md $spacing-lg;
+  background: $bg-light;
+  border: 2px solid $border-medium;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: $text-base;
   font-weight: 600;
-  color: #333;
+  color: $text-primary;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: $transition-base;
+  text-decoration: none;
 
   &:hover {
-    background: #f8f9fa;
-    border-color: #4285f4;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
+    background: $bg-medium;
+    border-color: $gold-primary;
+    transform: translateY(-2px);
+    box-shadow: $shadow-gold;
   }
 
   &:active {
@@ -67,5 +73,5 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: $text-xl;
 }

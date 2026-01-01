@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import {signOut, useSession} from "next-auth/react";
 
 export default function Navbar() {
+
+    const { data: session } = useSession();
     return (
         <nav className="navbar">
             <div className="container">
@@ -17,9 +22,35 @@ export default function Navbar() {
                         <li><Link href="/contact">Contact</Link></li>
                     </ul>
 
-                    <Link href="/admin" className="btn-outline-gold">
-                        Admin
-                    </Link>
+                    <div className="navbar__auth">
+                        { session ? (
+                            <>
+                                <Link href="/admin" className="btn-outline-gold">
+                                    📊 Admin
+                                </Link>
+                                <Link
+                                    href="https://cloudinary.com/console"
+                                    target="_blank"
+                                    className="btn-outline-gold"
+                                >
+                                    ☁️ Cloudinary
+                                </Link>
+                                <button
+                                    onClick={() => signOut({callbackUrl: '/'})}
+                                    className="btn-outline-gold"
+                                >
+                                    🚪 Déconnexion
+                                </button>
+
+                            </>
+                        ) : (
+                            <Link href="/admin" className="btn-outline-gold">
+                                Admin
+                            </Link>
+                        )}
+                    </div>
+
+
                 </div>
             </div>
         </nav>
