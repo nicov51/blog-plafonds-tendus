@@ -6,12 +6,14 @@ import { getErrorMessage } from '@/types';
 // GET /api/articles/mon-slug - Récupérer UN article
 export async function GET(
     request: NextRequest,
-    { params }: { params: { slug: string } }
+    { params }: { params: Promise<{ slug: string }> }
 ) {
     try {
         await dbConnect();
 
-        const article = await Article.findOne({ slug: params.slug });
+        const { slug } = await params;
+
+        const article = await Article.findOne({ slug });
 
         if (!article) {
             return NextResponse.json(

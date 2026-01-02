@@ -1,0 +1,26 @@
+services:
+  admin:
+    container_name: blog-plafonds-tendus-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3001"  # Port différent du site
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    networks:
+      - admin_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+networks:
+  admin_network:
+    driver: bridge
