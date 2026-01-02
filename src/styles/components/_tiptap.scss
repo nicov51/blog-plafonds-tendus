@@ -1,0 +1,237 @@
+@use '../variables' as *;
+
+// CONTENEUR PRINCIPAL
+.tiptap-container {
+  border: 1px solid $border-medium;
+  border-radius: 8px;
+  overflow: hidden;
+  background: $bg-card;
+}
+
+// TOOLBAR
+.tiptap-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  padding: $spacing-sm;
+  background: $bg-dark;
+  border-bottom: 1px solid $border-medium;
+  align-items: center;
+
+  .format-select {
+    padding: $spacing-xs $spacing-sm;
+    border: 1px solid $gold-primary;
+    border-radius: 4px;
+    background: $bg-medium;
+    color: $text-primary;
+    font-size: $text-sm;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      border-color: $gold-accent;
+      background: $bg-light;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $gold-accent;
+      box-shadow: 0 0 0 3px rgba($gold-primary, 0.2);
+    }
+
+    option {
+      background: $bg-medium;
+      color: $text-primary;
+    }
+  }
+
+  button {
+    padding: $spacing-xs $spacing-sm;
+    border: 1px solid $border-medium;
+    border-radius: 4px;
+    background: $bg-medium;
+    color: $text-primary;
+    font-size: $text-sm;
+    cursor: pointer;
+    transition: all $transition-base;
+    white-space: nowrap;
+
+    &:hover:not(:disabled) {
+      background: $bg-light;
+      border-color: $gold-primary;
+      color: $gold-accent;
+    }
+
+    &.is-active {
+      background: $gold-primary;
+      color: $bg-darkest;
+      border-color: $gold-primary;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background: $border-medium;
+  }
+}
+
+// ÉDITEUR
+.tiptap-editor {
+  min-height: 400px;
+  padding: $spacing-lg;
+  background: $bg-card;
+  font-size: $text-base;
+  line-height: 1.8;
+  color: $text-primary;
+
+  &:focus {
+    outline: none;
+  }
+
+  // Placeholder
+  p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: $text-muted;
+    pointer-events: none;
+    height: 0;
+  }
+
+  // Titres
+  h2 {
+    font-size: $text-3xl;
+    font-weight: 700;
+    margin: $spacing-lg 0 $spacing-sm;
+    color: $gold-light;
+    font-family: $font-serif;
+  }
+
+  h3 {
+    font-size: $text-2xl;
+    font-weight: 600;
+    margin: $spacing-md 0 $spacing-sm;
+    color: $gold-light;
+    font-family: $font-serif;
+  }
+
+  h4 {
+    font-size: $text-xl;
+    font-weight: 600;
+    margin: $spacing-md 0 $spacing-xs;
+    color: $text-gold;
+    font-family: $font-serif;
+  }
+
+  // Paragraphes
+  p {
+    margin-bottom: $spacing-sm;
+    color: $text-primary;
+  }
+
+  // Listes
+  ul, ol {
+    padding-left: $spacing-lg;
+    margin: $spacing-sm 0;
+    color: $text-primary;
+  }
+
+  li {
+    margin-bottom: $spacing-xs;
+  }
+
+  // Citations
+  blockquote {
+    border-left: 4px solid $gold-primary;
+    padding: $spacing-sm $spacing-md;
+    margin: $spacing-md 0;
+    font-style: italic;
+    color: $text-secondary;
+    background: rgba($gold-primary, 0.05);
+    border-radius: 0 4px 4px 0;
+  }
+
+  // Liens
+  a {
+    color: $gold-accent;
+    text-decoration: underline;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $gold-light;
+    }
+  }
+
+  // Images
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: $spacing-md 0;
+    box-shadow: $shadow-md;
+  }
+
+  // Séparateur
+  hr {
+    border: none;
+    border-top: 2px solid $border-medium;
+    margin: $spacing-lg 0;
+  }
+
+  // Code
+  code {
+    background: $bg-medium;
+    color: $gold-accent;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: $text-sm;
+  }
+
+  // Gras
+  strong {
+    color: $gold-light;
+    font-weight: 700;
+  }
+
+  // Italique
+  em {
+    color: $text-secondary;
+  }
+
+  // Barré
+  s {
+    color: $text-muted;
+  }
+
+  // Surlignage
+  mark {
+    background: rgba($gold-accent, 0.3);
+    color: $text-primary;
+    padding: 0.1rem 0.2rem;
+    border-radius: 2px;
+  }
+}
+
+// FOOTER
+.tiptap-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-sm $spacing-sm;
+  background: $bg-dark;
+  border-top: 1px solid $border-medium;
+  font-size: $text-sm;
+  color: $text-muted;
+
+  span {
+    &:not(:last-child) {
+      margin-right: $spacing-sm;
+    }
+  }
+}
+

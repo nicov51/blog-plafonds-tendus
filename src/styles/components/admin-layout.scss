@@ -1,0 +1,133 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.admin-header {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  p {
+    color: #666;
+    font-size: 1rem;
+  }
+}
+
+.admin-sidebar {
+  width: 250px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: white;
+  padding: 2rem 0;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+
+  @media (max-width: 768px) {
+    width: 80px; //  Réduit en mobile
+    padding: 1rem 0;
+  }
+}
+
+.admin-logo {
+  padding: 0 1.5rem;
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 0.5rem;
+    text-align: center;
+
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 1rem;
+
+  @media (max-width: 768px) {
+    padding: 0 0.5rem;
+  }
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+
+  &:hover {
+    background: rgba(212, 175, 55, 0.1);
+    color: #d4af37;
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    padding: 0.75rem;
+    font-size: 1.5rem; //  Emoji plus gros
+
+    span {
+      display: none; //  Cache le texte
+    }
+  }
+}
+
+.admin-main {
+  flex: 1;
+  margin-left: 250px;
+  padding: 2rem;
+  max-width: 100%;
+  overflow-x: hidden; // Empêche débordement
+
+  @media (max-width: 768px) {
+    margin-left: 80px;
+    padding: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-left: 60px;
+    padding: 0.5rem;
+  }
+}
+
+// TABLE RESPONSIVE
+table {
+  width: 100%;
+  display: block;
+  overflow-x: auto; // Scroll horizontal
+  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
+}
+
+.btn-primary {
+  @media (max-width: 768px) {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
